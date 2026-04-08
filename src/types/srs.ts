@@ -15,5 +15,6 @@ export interface PracticeSessionSettings {
   levels: ('N5' | 'N4')[];
   verbGroups: string[];
   includeGrammar: boolean;
+  includeVocabulary: boolean;
   maxItems: number;
 }

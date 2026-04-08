@@ -3,19 +3,20 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Play, Settings, CheckCircle2, XCircle, RotateCcw, Brain, ChevronRight, Filter, BookOpen, Layers } from 'lucide-react';
 import { verbs, Verb, VerbGroup } from '../data/verbs';
 import { grammarPoints, GrammarPoint } from '../data/grammar';
+import { generalVocabulary, Vocabulary } from '../data/vocabulary';
 import { getSRSData, updateSRSItem, getItemsForReview } from '../lib/srs';
 import { PracticeSessionSettings, SRSData } from '../types/srs';
 
 interface QuizItem {
   id: string;
-  type: 'verb' | 'grammar';
+  type: 'verb' | 'grammar' | 'vocabulary';
   question: string;
   answer: string;
   reading?: string;
   romaji?: string;
   level: string;
   category: string;
-  data: Verb | GrammarPoint;
+  data: Verb | GrammarPoint | Vocabulary;
 }
 
 interface PracticeModeProps {
@@ -25,10 +26,11 @@ interface PracticeModeProps {
 export const PracticeMode: React.FC<PracticeModeProps> = ({ onClose }) => {
   const [mode, setMode] = useState<'setup' | 'quiz' | 'summary'>('setup');
   const [settings, setSettings] = useState<PracticeSessionSettings>({
-    levels: ['N5'],
+    levels: ['N5', 'N4'],
     verbGroups: Object.values(VerbGroup),
     includeGrammar: true,
-    maxItems: 10,
+    includeVocabulary: true,
+    maxItems: 15,
   });
 
   const [quizItems, setQuizItems] = useState<QuizItem[]>([]);
@@ -51,7 +53,15 @@ export const PracticeMode: React.FC<PracticeModeProps> = ({ onClose }) => {
       ? grammarPoints.filter(g => settings.levels.includes(g.lesson <= 25 ? 'N5' : 'N4'))
       : [];
 
-    const allIds = [...availableVerbs.map(v => v.id), ...availableGrammar.map(g => g.id)];
+    const availableVocab = settings.includeVocabulary
+      ? generalVocabulary.filter(v => settings.levels.includes(v.lesson <= 25 ? 'N5' : 'N4'))
+      : [];
+
+    const allIds = [
+      ...availableVerbs.map(v => v.id), 
+      ...availableGrammar.map(g => g.id),
+      ...availableVocab.map(v => v.id)
+    ];
     const reviewIds = getItemsForReview(allIds);
 
     let selectedItems: QuizItem[] = [];
@@ -85,6 +95,20 @@ export const PracticeMode: React.FC<PracticeModeProps> = ({ onClose }) => {
           level: grammar.lesson <= 25 ? 'N5' : 'N4',
           category: `Lesson ${grammar.lesson}`,
           data: grammar,
+        };
+      }
+      const vocab = generalVocabulary.find(v => v.id === id);
+      if (vocab) {
+        return {
+          id: vocab.id,
+          type: 'vocabulary',
+          question: vocab.kanji,
+          answer: vocab.meaningBn,
+          reading: vocab.hiragana,
+          romaji: vocab.romaji,
+          level: vocab.lesson <= 25 ? 'N5' : 'N4',
+          category: `Lesson ${vocab.lesson}`,
+          data: vocab,
         };
       }
       return null;
@@ -176,6 +200,20 @@ export const PracticeMode: React.FC<PracticeModeProps> = ({ onClose }) => {
                   }`}
                 >
                   {settings.includeGrammar ? 'Included' : 'Excluded'}
+                </button>
+              </div>
+
+              <div className="space-y-3">
+                <p className="text-sm font-bold text-slate-700">Vocabulary</p>
+                <button
+                  onClick={() => setSettings({ ...settings, includeVocabulary: !settings.includeVocabulary })}
+                  className={`w-full py-2 rounded-xl text-sm font-bold transition-all border-2 ${
+                    settings.includeVocabulary
+                      ? 'bg-indigo-50 border-indigo-600 text-indigo-600'
+                      : 'bg-white border-slate-100 text-slate-400 hover:border-slate-200'
+                  }`}
+                >
+                  {settings.includeVocabulary ? 'Included' : 'Excluded'}
                 </button>
               </div>
             </div>

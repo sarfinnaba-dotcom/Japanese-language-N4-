@@ -579,26 +579,6 @@ export const grammarPoints: GrammarPoint[] = [
     ]
   },
   {
-    id: 'g32-2',
-    title: 'deshou (সম্ভবত)',
-    structure: 'Plain Form + でしょう',
-    explanationBn: 'কোনো কিছু ঘটার সম্ভাবনা বা অনুমান করতে।',
-    lesson: 32,
-    examples: [
-      { japanese: '明日は雨が降るでしょう।', romaji: 'Ashita wa ame ga furu deshou.', meaningBn: 'আগামীকাল সম্ভবত বৃষ্টি হবে।' }
-    ]
-  },
-  {
-    id: 'g32-3',
-    title: 'kamoshiremasen (হতেও পারে)',
-    structure: 'Plain Form + かもしれません',
-    explanationBn: 'খুব কম সম্ভাবনা বা অনিশ্চয়তা বোঝাতে।',
-    lesson: 32,
-    examples: [
-      { japanese: '時間に間に合わないかもしれません।', romaji: 'Jikan ni maniawanai kamoshiremasen.', meaningBn: 'সময়ে পৌঁছাতে না-ও পারি।' }
-    ]
-  },
-  {
     id: 'g33-2',
     title: 'to yomimasu (পড়া হয়)',
     structure: 'Kanji + と読みます',
@@ -616,16 +596,6 @@ export const grammarPoints: GrammarPoint[] = [
     lesson: 33,
     examples: [
       { japanese: '「立入禁止」は入るなという意味です।', romaji: '"Tachiiri kinshi" wa hairu na to iu imi desu.', meaningBn: '"তাচিইরি কিনশি" মানে হলো প্রবেশ নিষেধ।' }
-    ]
-  },
-  {
-    id: 'g34-2',
-    title: 'ato de (পরে)',
-    structure: 'Verb (Ta form) / Noun + の + あとで',
-    explanationBn: 'একটি কাজ করার পর অন্যটি করা।',
-    lesson: 34,
-    examples: [
-      { japanese: '仕事のあとで、飲みに行きます।', romaji: 'Shigoto no ato de, nomi ni ikimasu.', meaningBn: 'কাজের পর পান করতে যাবো।' }
     ]
   },
   {
@@ -669,7 +639,7 @@ export const grammarPoints: GrammarPoint[] = [
     ]
   },
   {
-    id: 'g32-2',
+    id: 'g32-prob-1',
     title: 'deshou (সম্ভবত)',
     structure: 'Plain Form + でしょう',
     explanationBn: 'ভবিষ্যতের কোনো সম্ভাবনা বা অনুমান প্রকাশ করতে।',
@@ -679,7 +649,7 @@ export const grammarPoints: GrammarPoint[] = [
     ]
   },
   {
-    id: 'g32-3',
+    id: 'g32-prob-2',
     title: 'kamoshiremasen (হতেও পারে)',
     structure: 'Plain Form + かもしれません',
     explanationBn: 'কোনো কিছু হওয়ার সম্ভাবনা আছে কিন্তু নিশ্চিত নয় (হতেও পারে)।',
@@ -709,7 +679,7 @@ export const grammarPoints: GrammarPoint[] = [
     ]
   },
   {
-    id: 'g34-2',
+    id: 'g34-time-1',
     title: 'ato de (পরে)',
     structure: 'Verb (Ta-form) / Noun + の + あとで',
     explanationBn: 'কোনো কাজ বা ঘটনার পরে অন্য কিছু করা।',
